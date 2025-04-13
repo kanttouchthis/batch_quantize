@@ -1,0 +1,20 @@
+[project]
+name = "batch_quantize"
+version = "0.1.0"
+description = "GPU accelerated k-means batch image quantization"
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.8"
+
+[project.urls]
+Homepage = "https://github.com/kanttouchthis/batch_quantize"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["batch_quantize"]
+
+[tool.setuptools.package-dir]
+"" = "."
