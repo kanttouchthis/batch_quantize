@@ -42,7 +42,7 @@ def quantize(
         sampling_factor (float): Rescaling factor used for k-means clustering to reduce
             computational load. Must be in (0, 1]. Default is 0.5.
         sampling (str): Sampling mode for resampling images. Options are:
-            "nearest", "box", "bilinear", "hamming", "bicubic", "lanczos". Default is "bicubic"
+            "nearest", "box", "bilinear", "hamming", "bicubic", "lanczos". Default is "bicubic".
         max_iter (int): Maximum number of iterations for the k-means algorithm. Default is 100.
         tol (float): Convergence threshold for k-means. Default is 0.25.
         patience (int): Number of iterations with no improvement before early stopping. Default is 3.
