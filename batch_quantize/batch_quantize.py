@@ -63,7 +63,7 @@ def quantize(
     width, height = batch[0].size
     if sampling_factor < 1.0:
         width, height = int(width * sampling_factor), int(height * sampling_factor)
-        batch = [img.resize((width, height), resample=sampling.lower()) for img in batch]
+        batch = [img.resize((width, height), resample=SAMPLINGMODES[sampling.lower()]) for img in batch]
 
     array_batch = np.stack([np.asarray(img).reshape(-1, 3) for img in batch])
 
