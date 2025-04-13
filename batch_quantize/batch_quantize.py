@@ -11,11 +11,21 @@ DITHERMODES = {
     "rasterize": Image.Dither.RASTERIZE
 }
 
+SAMPLINGMODES = {
+    "nearest": Image.Resampling.NEAREST,
+    "box": Image.Resampling.BOX,
+    "bilinear": Image.Resampling.BILINEAR,
+    "hamming": Image.Resampling.HAMMING,
+    "bicubic": Image.Resampling.BICUBIC,
+    "lanczos": Image.Resampling.LANCZOS
+}
+
 def quantize(
     batch: List[Image.Image],
     colors: int = 16,
     dither: str | None = "floydsteinberg",
     sampling_factor=0.5,
+    sampling: str = "bicubic",
     max_iter: int = 100,
     tol: float = 0.25,
     patience: int = 3,
@@ -31,6 +41,8 @@ def quantize(
             "None", "ordered", "floydsteinberg", "rasterize". Default is "floydsteinberg".
         sampling_factor (float): Rescaling factor used for k-means clustering to reduce
             computational load. Must be in (0, 1]. Default is 0.5.
+        sampling (str): Sampling mode for resampling images. Options are:
+            "nearest", "box", "bilinear", "hamming", "bicubic", "lanczos". Default is "bicubic"
         max_iter (int): Maximum number of iterations for the k-means algorithm. Default is 100.
         tol (float): Convergence threshold for k-means. Default is 0.25.
         patience (int): Number of iterations with no improvement before early stopping. Default is 3.
@@ -51,7 +63,7 @@ def quantize(
     width, height = batch[0].size
     if sampling_factor < 1.0:
         width, height = int(width * sampling_factor), int(height * sampling_factor)
-        batch = [img.resize(width, height) for img in batch]
+        batch = [img.resize((width, height), resample=sampling.lower()) for img in batch]
 
     array_batch = np.stack([np.asarray(img).reshape(-1, 3) for img in batch])
 
